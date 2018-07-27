@@ -36,7 +36,7 @@ server.get('/api/actions', (req, res) => {//get all actions
   
   })
 
-  server.post('/api/actions', (req, res) => {//add action not working
+  server.post('/api/actions', (req, res) => {//add action 
     const action = req.body;
     actionModel.insert(action)
       .then(actions => {
@@ -48,7 +48,7 @@ server.get('/api/actions', (req, res) => {//get all actions
       })
   
   });
-  server.put('/api/actions/:id', (req, res) => {//update post not working
+  server.put('/api/actions/:id', (req, res) => {//update action 
     const changes = req.body
     const id = req.params.id;
     actionModel.update(id, changes)
@@ -116,7 +116,7 @@ server.get('/api/actions', (req, res) => {//get all actions
       })
   
   });
-  server.put('/api/projects/:id', (req, res) => {//update project not working
+  server.put('/api/projects/:id', (req, res) => {//update project 
     const changes = req.body
     const { id } = req.params;
     projectModel.update(id, changes)
@@ -126,6 +126,20 @@ server.get('/api/actions', (req, res) => {//get all actions
       .catch(error => {
         res.status(500)
           .json({ error: "project not updated." })
+      })
+  
+  });
+
+  server.get('/api/pacts/:id', (req, res) => {//get project acts
+    
+    const  projectId  = req.params.id;
+    projectModel.getProjectActions(projectId)
+      .then(projects => {
+        res.status(200).json(projects);
+      })
+      .catch(error => {
+        res.status(500)
+          .json({ error: "dunn whatsup." })
       })
   
   });
